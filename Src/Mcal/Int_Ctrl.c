@@ -54,7 +54,6 @@
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-extern u8 Intrrupt_u8SET;
 
 void Init_voidIntCtrl(void)
 {

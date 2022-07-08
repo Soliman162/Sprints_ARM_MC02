@@ -77,7 +77,8 @@ void Init_voidIntCtrl(void)
     for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)
     {
         LOC_N_u8 = Intrrupt_u8SET[LOC_i_u8][0]/32;
-        EN_REGs->EN[LOC_N_u8] |= 1<<( (Intrrupt_u8SET[LOC_i_u8][0])%32 ) ;
+        LOC_j_u8 = (Intrrupt_u8SET[LOC_i_u8][0])%32;
+        EN_REGs->EN[LOC_N_u8] |= 1<<( LOC_j_u8 ) ;
     }
 
 }

@@ -30,8 +30,8 @@
  *  GLOBAL DATA
  *********************************************************************************************************************/
 u8 Intrrupt_u8SET[MAX_INTRRUPT_NUMBER][2] = {
-                                                {UART0,GROUP_PRIORITY_0_SUBPRIORITY_0},
-                                                {ADC0_Sequence_0,GROUP_PRIORITY_1_SUBPRIORITY_0}, 
+                                                {UART0,GROUP_PRIORITY_0_SUBPRIORITY_1},
+                                                {ADC0_Sequence_0,GROUP_PRIORITY_0_SUBPRIORITY_2}, 
                                             };
 
 

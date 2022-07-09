@@ -2,7 +2,7 @@
 /**********************************************************************************************************************
  *  FILE DESCRIPTION
  *  -----------------------------------------------------------------------------------------------------------------*/
-/**        \file  IntCrtl.c
+/**        \file  SCB.c
  *        \brief  Nested Vector Interrupt Controller Driver
  *
  *      \details  The Driver Configure All MCU interrupts Priority into gorups and subgroups
@@ -14,10 +14,11 @@
  *  INCLUDES
  *********************************************************************************************************************/
 #include "../Common/std_types.h"
+#include "../Common/BIT_MATH.h"
+
 #include "../Common/MCU_HW.h"
-#include "../Mcal/Inc/IntCtrl_types.h"
-#include "../Mcal/Inc/IntCtrl.h"
-#include "../config/IntCtrl_Cfg.h"
+#include "Inc/SCB.h"
+
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
 *********************************************************************************************************************/	
@@ -44,9 +45,9 @@
 
 
 /******************************************************************************
-* \Syntax          : void IntCrtl_Init(void)                                      
-* \Description     : initialize Nvic\SCB Module by parsing the Configuration 
-*                    into Nvic\SCB registers                                    
+* \Syntax          : void SCB_Init(void)                                      
+* \Description     : initialize SCB\SCB Module by parsing the Configuration 
+*                    into SCB registers                                    
 *                                                                             
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
@@ -55,55 +56,48 @@
 * \Return value:   : None
 *******************************************************************************/
 
-void Init_voidIntCtrl(void)
+void Init_voidSCB_Clock(void)
 {
-    u8 LOC_i_u8;
-    u8 LOC_j_u8;
-    u8 LOC_N_u8;
-
-    /* set group_priorty / subgroub priority APINT in SCB*/
-    APINT_REG |= (0x05FA0000|(GROUP_PRIORITY_X_SUBPRIORITY_X<<8));
-
-    /* set group_priorty / subgroub priority in NVIC */
-    for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)
-    {
-        LOC_N_u8 = (Intrrupt_u8SET[LOC_i_u8][0])/4;
-        LOC_j_u8 = (Intrrupt_u8SET[LOC_i_u8][0]) - 4*LOC_N_u8;
-
-        PRI_REGS->PRI[LOC_N_u8] |= (Intrrupt_u8SET[LOC_i_u8][1]<<(LOC_j_u8*8+5)) ;
-    }
+    /* Deep sleep or Run */
     
-    /* Enable/disable IRQ */
-    for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)
-    {
-        LOC_N_u8 = Intrrupt_u8SET[LOC_i_u8][0]/32;
-        LOC_j_u8 = (Intrrupt_u8SET[LOC_i_u8][0])%32;
-        EN_REGs->EN[LOC_N_u8] |= 1<<( LOC_j_u8 ) ;
-    }
-
 }
 
+void SCB_voidReset(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    /* Set reset bit */
+    SCB_REGs->SCB_RESET_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    /* clear reset bit*/
+    SCB_REGs->SCB_RESET_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    /* wait the PERIPHERAL become ready */
+    while(GET_BIT(SCB_REGs->SCB_PERIPHERAL_READY_REGs[Copy_enumModuleName],Copy_enumModuleIndex)==0);
+}
+
+void SCB_voidEnable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_RUN_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+}
+void SCB_voidDisable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_RUN_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+}
+
+void SCB_voidEnable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+}
+void SCB_voidDisable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+}
+
+void SCB_voidEnable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+}
+void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+{
+    SCB_REGs->SCB_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+}
 /**********************************************************************************************************************
- *  END OF FILE: IntCrtl.c
+ *  END OF FILE: SCB.c
  *********************************************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

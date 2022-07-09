@@ -1,50 +1,48 @@
 
 /**********************************************************************************************************************
+
  *  FILE DESCRIPTION
- *  -----------------------------------------------------------------------------------------------------------------*/
-/**        \file  IntCrtl.c
- *        \brief  Nested Vector Interrupt Controller Driver
+ *  -------------------------------------------------------------------------------------------------------------------
+ *         File:  SCB.h
+ *       Module:  SCB
  *
- *      \details  The Driver Configure All MCU interrupts Priority into gorups and subgroups
- *                Enable NVIC Interrupt Gate for Peripherals
- *
+ *  Description:  header file for IntCrtl Module    
+ *  
  *********************************************************************************************************************/
+#ifndef SCB_H
+#define SCB_H
 
 /**********************************************************************************************************************
- *  INCLUDES
+ * INCLUDES
  *********************************************************************************************************************/
-#include "../Common/std_types.h"
-#include "../Common/MCU_HW.h"
-#include "../Mcal/Inc/IntCtrl_types.h"
-#include "../Mcal/Inc/IntCtrl.h"
-#include "../config/IntCtrl_Cfg.h"
-/**********************************************************************************************************************
-*  LOCAL MACROS CONSTANT\FUNCTION
-*********************************************************************************************************************/	
+#include "../../Common/std_types.h"
+#include "SCB_types.h"
 
 /**********************************************************************************************************************
- *  LOCAL DATA 
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  GLOBAL DATA
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  LOCAL FUNCTION PROTOTYPES
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  LOCAL FUNCTIONS
- *********************************************************************************************************************/
-
-/**********************************************************************************************************************
- *  GLOBAL FUNCTIONS
+ *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
 
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION MACROS
+ *********************************************************************************************************************/
+
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA TYPES AND STRUCTURES
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ *  GLOBAL DATA PROTOTYPES
+ *********************************************************************************************************************/
+
+ 
+/**********************************************************************************************************************
+ *  GLOBAL FUNCTION PROTOTYPES
+ *********************************************************************************************************************/
+ 
 /******************************************************************************
-* \Syntax          : void IntCrtl_Init(void)                                      
+* \Syntax          : void SCB_Init(void)                                      
 * \Description     : initialize Nvic\SCB Module by parsing the Configuration 
 *                    into Nvic\SCB registers                                    
 *                                                                             
@@ -55,55 +53,22 @@
 * \Return value:   : None
 *******************************************************************************/
 
-void Init_voidIntCtrl(void)
-{
-    u8 LOC_i_u8;
-    u8 LOC_j_u8;
-    u8 LOC_N_u8;
+void Init_voidSCB_Clock(void);
 
-    /* set group_priorty / subgroub priority APINT in SCB*/
-    APINT_REG |= (0x05FA0000|(GROUP_PRIORITY_X_SUBPRIORITY_X<<8));
+void SCB_voidReset(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
 
-    /* set group_priorty / subgroub priority in NVIC */
-    for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)
-    {
-        LOC_N_u8 = (Intrrupt_u8SET[LOC_i_u8][0])/4;
-        LOC_j_u8 = (Intrrupt_u8SET[LOC_i_u8][0]) - 4*LOC_N_u8;
+void SCB_voidEnable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
+void SCB_voidDisable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
 
-        PRI_REGS->PRI[LOC_N_u8] |= (Intrrupt_u8SET[LOC_i_u8][1]<<(LOC_j_u8*8+5)) ;
-    }
-    
-    /* Enable/disable IRQ */
-    for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)
-    {
-        LOC_N_u8 = Intrrupt_u8SET[LOC_i_u8][0]/32;
-        LOC_j_u8 = (Intrrupt_u8SET[LOC_i_u8][0])%32;
-        EN_REGs->EN[LOC_N_u8] |= 1<<( LOC_j_u8 ) ;
-    }
+void SCB_voidEnable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
+void SCB_voidDisable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
 
-}
+void SCB_voidEnable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
+void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
+
+ 
+#endif /* SCB_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCrtl.c
+ *  END OF FILE: SCB.h
  *********************************************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

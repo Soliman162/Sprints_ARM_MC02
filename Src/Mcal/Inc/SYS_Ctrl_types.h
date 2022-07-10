@@ -2,15 +2,15 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  SCB_Types.h
+ *         File:  SYS_CTRL_Types.h
  *       Module:  -
  *
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
 
-#ifndef SCB_TYPES_H
-#define SCB_TYPES_H
+#ifndef SYS_CTRL_TYPES_H
+#define SYS_CTRL_TYPES_H
 
 /**********************************************************************************************************************
  * INCLUDES
@@ -23,7 +23,7 @@
 #define     DISABLED		0
 #define     ENABLED			1
 
-#define  NOT_USED		0
+#define  NOT_USED		    0
 #define  USED				1
 
 #define    MOSC_MAIN_OSCILLATOR_16_MHZ						0

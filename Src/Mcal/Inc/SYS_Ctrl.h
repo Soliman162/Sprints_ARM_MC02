@@ -3,20 +3,20 @@
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  SCB.h
- *       Module:  SCB
+ *         File:  SYS_Ctrl.h
+ *       Module:  SYS_Ctrl
  *
- *  Description:  header file for IntCrtl Module    
+ *  Description:  header file for SYS_Ctrl Module    
  *  
  *********************************************************************************************************************/
-#ifndef SCB_H
-#define SCB_H
+#ifndef SYS_CTRL_H
+#define SYS_CTRL_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
 #include "std_types.h"
-#include "SCB_types.h"
+#include "SYS_Ctrl_types.h"
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
@@ -67,8 +67,8 @@ void SCB_voidEnable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODU
 void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex);
 
  
-#endif /* SCB_H */
+#endif /* SYS_Ctrl_h */
 
 /**********************************************************************************************************************
- *  END OF FILE: SCB.h
+ *  END OF FILE: SYS_Ctrl.h
  *********************************************************************************************************************/

@@ -17,9 +17,9 @@
 #include "BIT_MATH.h"
 #include "MCU_HW.h"
 
-#include "SCB_types.h"
-#include "SCB_Cfg.h"
-#include "SCB.h"
+#include "SYS_Ctrl_types.h"
+#include "SYS_Ctrl_Cfg.h"
+#include "SYS_Ctrl.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -47,9 +47,9 @@
 
 
 /******************************************************************************
-* \Syntax          : void SCB_Init(void)                                      
-* \Description     : initialize SCB\SCB Module by parsing the Configuration 
-*                    into SCB registers                                    
+* \Syntax          : void SYS_Ctrl_Init(void)                                      
+* \Description     : initialize SYS_Ctrl\SYS_Ctrl Module by parsing the Configuration 
+*                    into SYS_Ctrl registers                                    
 *                                                                             
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
@@ -141,5 +141,5 @@ void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MOD
     SCB_REGs->SCB_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
 }
 /**********************************************************************************************************************
- *  END OF FILE: SCB.c
+ *  END OF FILE: SYS_Ctrl.c
  *********************************************************************************************************************/

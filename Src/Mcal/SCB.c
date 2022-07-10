@@ -61,16 +61,18 @@
 void Init_voidSCB_Clock(void)
 {
 	
-	    #if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
-        /*Enable main oscillator */
-				SCB_RCC_REG &= (u32)(~(1));
-        /*Select main oscillator */
-        //SCB_RCC_REG &= (u32)(~((3)<<4));
-        /* select crystal value */
+	#if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
+        SCB_MOSC_REG &= ~(1<<2);
+    /*Enable main oscillator */
+		SCB_RCC_REG &= (u32)(~(1));
+    /*Select main oscillator */
+        SCB_RCC_REG &= (u32)(~((3)<<4));
+    /* select crystal value */
         SCB_RCC_REG |=  CRYSTAL_VALUE<<6;
     #else 
         SCB_RCC_REG |= CLOCK_SOURCE<<4;
     #endif
+
     /* Deep sleep or Run */
     #if SLEEP_MODE_CONTROL == DEEP_SLEEP_MODE_CONTROL
         SCB_RCC_REG |= 1<<27;

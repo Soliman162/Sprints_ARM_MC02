@@ -16,7 +16,7 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "../Mcal/Inc/SCB_types.h"
+#include "SCB_types.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -56,7 +56,7 @@
     -RUN_MODE_CLOCK_CONTROL
     -DEEP_SLEEP_MODE_CONTROL
 */
-#define SLEEP_MODE_CONTROL   DEEP_SLEEP_MODE_CONTROL
+#define SLEEP_MODE_CONTROL   RUN_MODE_CLOCK_CONTROL
 
 /*
     -USED
@@ -99,7 +99,6 @@
 #if PWM_CLOCK_DIVISOR_STATE == ENABLED
 
 /*
-
     -PWM_CLOCK_DIVISOR_2
     -PWM_CLOCK_DIVISOR_4
     -PWM_CLOCK_DIVISOR_8

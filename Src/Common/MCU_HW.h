@@ -54,13 +54,13 @@ typedef struct{
 typedef struct{
 
     volatile u32 SCB_RESET_REGs[24];
-    u32 Reserved[40];
+    u32 Reserved_0[40];
     volatile u32 SCB_RUN_MODE_GC_REGs[24];
-    u32 Reserved[40];
+    u32 Reserved_1[40];
     volatile u32 SCB_SLEEP_MODE_GC_REGs[24];
-    u32 Reserved[40];
+    u32 Reserved_2[40];
     volatile u32 SCB_DEEP_SLEEP_MODE_GC_REGs[24];
-    u32 Reserved[104];
+    u32 Reserved_3[104];
     volatile u32 SCB_PERIPHERAL_READY_REGs[24];
 
 }SCB_config_REGs;

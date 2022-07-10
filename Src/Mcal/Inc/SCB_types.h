@@ -15,11 +15,25 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "../../Common/MCU_HW.h"
 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
+ 
+#define     DISABLED		0
+#define     ENABLED			1
+
+#define  NOT_USED		0
+#define  USED				1
+
+#define    MOSC_MAIN_OSCILLATOR_16_MHZ						0
+#define    PIOSC_PRECISION_INTERNAL_OSCILLATOR		1
+#define 	 PIOSC_4_PRECISION_INTERNALL_OSCILLATOR 2
+#define    LIFOSC_LOW_FREQ_INTERNAL_OSCILLATOR		3
+
+#define    RUN_MODE_CLOCK_CONTROL		0
+#define    DEEP_SLEEP_MODE_CONTROL	1
+
 typedef enum{
 
     CRYSTAL_VALUE_4_MHz=6, 
@@ -46,16 +60,6 @@ typedef enum{
 
 }CRYSTAL_VALUE_CONFIG;
 
-
-
-typedef enum{
-
-    NOT_USED=0,
-    USED
-
-}DIVISOR_STATE_config;
-
-
 typedef enum{
 
     SYSDIV_DIVISOR_1=0,
@@ -76,14 +80,7 @@ typedef enum{
     SYSDIV_DIVISOR_16
 
 }SYSDIV_DIVISOR;
-
-typedef enum{
-
-    DISABLED=0,
-    ENABLED
-
-}PWM_CLOCK_DIVISOR_CONFIG_STATE;
-
+	
 typedef enum{
 
     PWM_CLOCK_DIVISOR_2=0,
@@ -94,22 +91,6 @@ typedef enum{
     PWM_CLOCK_DIVISOR_64
 
 }PWM_CLOCK_DIVISOR_config;
-
-typedef enum{
-
-    MOSC_MAIN_OSCILLATOR_16_MHZ=0,
-    PIOSC_PRECISION_INTERNAL_OSCILLATOR,
-    PIOSC_4_PRECISION_INTERNALL_OSCILLATOR,
-    LIFOSC_LOW_FREQ_INTERNAL_OSCILLATOR
-
-}CLOCK_SOURCE_config;
-
-typedef enum{
-
-    RUN_MODE_CLOCK_CONTROL=0,
-    DEEP_SLEEP_MODE_CONTROL
-
-}SLEEP_MODE_REG_CONTROL;
 
 
 /**********************************************************************************************************************
@@ -125,7 +106,7 @@ typedef enum{
     UART=6,//6
     SSI=7,//7
     I2C=8,//8
-    USB=10,//10
+    USB_SCB=10,//10
     CAN=13,//13
     ADC=14,//14
     ACMP=15,//15

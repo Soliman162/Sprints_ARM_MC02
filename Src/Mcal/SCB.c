@@ -17,6 +17,7 @@
 #include "../Common/BIT_MATH.h"
 
 #include "../Common/MCU_HW.h"
+#include "../config/SCB_Cfg.h"
 #include "Inc/SCB.h"
 
 /**********************************************************************************************************************
@@ -59,7 +60,43 @@
 void Init_voidSCB_Clock(void)
 {
     /* Deep sleep or Run */
-    
+    #if SLEEP_MODE_CONTROL == DEEP_SLEEP_MODE_CONTROL
+        SCB_RCC_REG |= 1<<27;
+    #elif   SLEEP_MODE_CONTROL == RUN_MODE_CLOCK_CONTROL
+        SCB_RCC_REG &= ~(1<<27);
+    #endif
+    /*enable divisor*/
+    #if DIVIDER_STATE == USED
+
+        SCB_RCC_REG |= 1<<22;
+        SCB_RCC_REG |= (SSDIV_DIVISOR<<23);
+    #elif
+        SCB_RCC_REG &= ~(1<<22);
+    #endif
+    #if PWM_CLOCK_DIVISOR_STATE == ENABLED
+        SCB_RCC_REG |= 1<<20;
+        SCB_RCC_REG |= PWM_CLOCK_DIVISOR<<17;
+    #endif 
+
+    #if PLL_STATE == USED
+
+        CLR_BIT(SCB_RCC_REG,11);
+        CLR_BIT(SCB_RCC_REG,13);
+
+    #elif PLL_STATE == NOT_USED
+        SET_BIT(SCB_RCC_REG,11);
+    #endif
+
+    #if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
+        /*Enable main oscillator */
+        CLR_BIT(SCB_RCC_REG,0);
+        /*Select main oscillator */
+        SCB_RCC_REG &= ~((0b11)<<4);
+        /* select crystal value */
+        SCB_RCC_REG |=  CRYSTAL_VALUE<<6;
+    #else 
+        SCB_RCC_REG |= CLOCK_SOURCE<<4;
+    #endif
 }
 
 void SCB_voidReset(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)

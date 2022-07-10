@@ -25,7 +25,11 @@
  *********************************************************************************************************************/
 #define CORTEX_M4_BASE_ADDRESS      0xE000E000
 #define SCB_BASE_ADDRESS            0x400FE000
+
 #define APINT_REG                   *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
+
+#define SCB_RCC_REG                 *((volatile u32 *)(SCB_BASE_ADDRESS+0x060))
+#define SCB_MOSC_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
@@ -45,6 +49,7 @@ typedef struct{
 }EN_Int_Config_Reg;
 
 #define  EN_REGs    ((EN_Int_Config_Reg *)(CORTEX_M4_BASE_ADDRESS+0x100))
+
 
 typedef struct{
 

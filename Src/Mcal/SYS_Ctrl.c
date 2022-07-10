@@ -62,13 +62,13 @@ void Init_voidSCB_Clock(void)
 {
 	
 	#if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
-        SCB_MOSC_REG &= ~(1<<2);
+        SYS_CTRL_MOSC_REG &= ~(1<<2);
     /*Enable main oscillator */
-		SCB_RCC_REG &= (u32)(~(1));
+		SYS_CTRL_RCC_REG &= (u32)(~(1));
     /*Select main oscillator */
-        SCB_RCC_REG &= (u32)(~((3)<<4));
+        SYS_CTRL_RCC_REG &= (u32)(~((3)<<4));
     /* select crystal value */
-        SCB_RCC_REG |=  CRYSTAL_VALUE<<6;
+        SYS_CTRL_RCC_REG |=  CRYSTAL_VALUE<<6;
     #else 
         SCB_RCC_REG |= CLOCK_SOURCE<<4;
     #endif
@@ -77,13 +77,13 @@ void Init_voidSCB_Clock(void)
     #if SLEEP_MODE_CONTROL == DEEP_SLEEP_MODE_CONTROL
         SCB_RCC_REG |= 1<<27;
     #elif   SLEEP_MODE_CONTROL == RUN_MODE_CLOCK_CONTROL
-        SCB_RCC_REG &= ~(1<<27);
+        SYS_CTRL_RCC_REG &= ~(1<<27);
     #endif
     /*enable divisor*/
     #if DIVIDER_STATE == USED
 
-        SCB_RCC_REG |= 1<<22;
-        SCB_RCC_REG |= (SSDIV_DIVISOR<<23);
+        SYS_CTRL_RCC_REG |= 1<<22;
+        SYS_CTRL_RCC_REG |= (SSDIV_DIVISOR<<23);
     #elif
         SCB_RCC_REG &= ~(1<<22);
     #endif
@@ -98,7 +98,7 @@ void Init_voidSCB_Clock(void)
         CLR_BIT(SCB_RCC_REG,13);
 
     #elif PLL_STATE == NOT_USED
-				SCB_RCC_REG |= 1<<11;
+				SYS_CTRL_RCC_REG |= 1<<11;
     #endif
 
 
@@ -107,38 +107,38 @@ void Init_voidSCB_Clock(void)
 void SCB_voidReset(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
     /* Set reset bit */
-    SCB_REGs->SCB_RESET_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_RESET_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
     /* clear reset bit*/
-    SCB_REGs->SCB_RESET_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_RESET_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
     /* wait the PERIPHERAL become ready */
-    while(GET_BIT(SCB_REGs->SCB_PERIPHERAL_READY_REGs[Copy_enumModuleName],Copy_enumModuleIndex)==0);
+    while(GET_BIT(SYS_CTRL_REGs->SYS_CTRL_PERIPHERAL_READY_REGs[Copy_enumModuleName],Copy_enumModuleIndex)==0);
 }
 
 void SCB_voidEnable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_RUN_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_RUN_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
 }
 void SCB_voidDisable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_RUN_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_RUN_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
 }
 
 void SCB_voidEnable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
 }
 void SCB_voidDisable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
 }
 
 void SCB_voidEnable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
 }
 void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
 {
-    SCB_REGs->SCB_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    SYS_CTRL_REGs->SYS_CTRL_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
 }
 /**********************************************************************************************************************
  *  END OF FILE: SYS_Ctrl.c

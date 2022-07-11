@@ -28,8 +28,17 @@
 
 //#define APINT_REG                        *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
 
+typedef struct
+{
+
+    
+}SYS_CTRL_RCC_config;
+
+
+
 #define SYS_CTRL_RCC_REG                 *((volatile u32 *)(SCB_BASE_ADDRESS+0x060))
 #define SYS_CTRL_MOSC_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
+#define SYS_CTRL_PLL_STAT                *((volatile u32 *)(SCB_BASE_ADDRESS+0x168)) 
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES

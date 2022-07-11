@@ -79,6 +79,17 @@ void Init_voidSCB_Clock(void)
     #elif   SLEEP_MODE_CONTROL == RUN_MODE_CLOCK_CONTROL
         SYS_CTRL_RCC_REG &= ~(1<<27);
     #endif
+    #if PLL_STATE == USED
+
+        CLR_BIT(SCB_RCC_REG,11);
+        CLR_BIT(SCB_RCC_REG,13);
+        while(GET_BIT(SYS_CTRL_PLL_STAT,0)!=1);
+    #elif PLL_STATE == NOT_USED
+		SYS_CTRL_RCC_REG |= 1<<11;
+        SYS_CTRL_RCC_REG |= 1<<13;
+        while(GET_BIT(SYS_CTRL_PLL_STAT,0)!=1);
+
+    #endif
     /*enable divisor*/
     #if DIVIDER_STATE == USED
 
@@ -92,16 +103,6 @@ void Init_voidSCB_Clock(void)
         SCB_RCC_REG |= 1<<20;
         SCB_RCC_REG |= PWM_CLOCK_DIVISOR<<17;
     #endif 
-
-    #if PLL_STATE == USED
-
-        CLR_BIT(SCB_RCC_REG,11);
-        CLR_BIT(SCB_RCC_REG,13);
-
-    #elif PLL_STATE == NOT_USED
-		SYS_CTRL_RCC_REG |= 1<<11;
-    #endif
-
 
 }
 

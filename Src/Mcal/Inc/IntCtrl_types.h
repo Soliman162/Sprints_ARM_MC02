@@ -167,6 +167,23 @@ typedef enum{
 
 }PRIORITY_LEVEL;
 
+
+#define    STACK_4_BYTE_ALIGNED     0
+#define    STACK_8_BYTE_ALIGNED     1
+
+
+#define ENABLE      1
+#define DISABLED    0
+
+#define    NMI          31
+
+#define    PENDSV_INTERRUPT       28
+#define    SYS_TICK_INTERRUPT     26
+
+#define     USAGE_FAULT                 18
+#define     BUS_FAULT                   17
+#define     MEMORY_MANAGMENT_FAULT      16
+
  
 #endif  /* INTCTRL_TYPES_H */
 

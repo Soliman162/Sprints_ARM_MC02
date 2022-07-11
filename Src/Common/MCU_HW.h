@@ -27,16 +27,44 @@
 #define SCB_BASE_ADDRESS            0x400FE000
 
 //#define APINT_REG                        *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
-
-typedef struct
-{
-
+typedef struct{
     
+        u32 MOSCDIS     :1;
+
+        u32 reserved_1  :3;
+
+        u32 OSCSRC      :2;
+        u32 XTAL        :5;
+        u32 BYPASS      :1;
+
+        u32 reserved_2  :1;
+
+        u32 PWRDN       :1;
+
+        u32 reserved_3  :3;
+
+        u32 PWMDIV      :3;
+        u32 USEPWMDIV   :1;
+
+        u32 reserved_4  :1;
+
+        u32 USESYSDIV   :1;
+        u32 SYSDIV      :4;
+
+        u32 ACG         :1;
+
+        u32 reserved_5  :4;
+
+}RCC_BIT_FIELD;
+typedef union
+{
+    u32 reg;
+    RCC_BIT_FIELD bit;
+
 }SYS_CTRL_RCC_config;
 
+#define SYS_CTRL_RCC_REG                 ((volatile SYS_CTRL_RCC_config *)(SCB_BASE_ADDRESS+0x060))
 
-
-#define SYS_CTRL_RCC_REG                 *((volatile u32 *)(SCB_BASE_ADDRESS+0x060))
 #define SYS_CTRL_MOSC_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
 #define SYS_CTRL_PLL_STAT                *((volatile u32 *)(SCB_BASE_ADDRESS+0x168)) 
 

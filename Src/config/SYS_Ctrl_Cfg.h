@@ -62,9 +62,9 @@
     -USED
     -NOT_USED
 */
-#define DIVIDER_STATE   NOT_USED
+#define DIVIDER_STATE   USED
 
-#define PLL_STATE   NOT_USED
+#define PLL_STATE   USED
 
 #if DIVIDER_STATE == USED
 /*
@@ -87,7 +87,7 @@
     -SYSDIV_DIVISOR_16
 
 */
-#define SSDIV_DIVISOR       SYSDIV_DIVISOR_1
+#define SSDIV_DIVISOR       SYSDIV_DIVISOR_2
 #endif
 
 /*

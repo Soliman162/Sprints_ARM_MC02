@@ -15,7 +15,7 @@
  *********************************************************************************************************************/
 #include "std_types.h"
 #include "BIT_MATH.h"
-#include "MCU_HW.h"
+#include "../Common/MCU_HW.h"
 
 #include "SYS_Ctrl_types.h"
 #include "SYS_Ctrl_Cfg.h"
@@ -60,20 +60,33 @@
 
 void Init_voidSCB_Clock(void)
 {
-	
+    SYS_CTRL_RCC_REG->bit.ACG = 0;
+    SYS_CTRL_RCC_REG->bit.SYSDIV = SSDIV_DIVISOR;
+    SYS_CTRL_RCC_REG->bit.USESYSDIV = 1;
+    SYS_CTRL_RCC_REG->bit.USEPWMDIV = 0;
+    SYS_CTRL_RCC_REG->bit.PWRDN = 1;
+    while(GET_BIT(SYS_CTRL_PLL_STAT,0)!=1);
+    SYS_CTRL_RCC_REG->bit.BYPASS = 1;
+    SYS_CTRL_RCC_REG->bit.XTAL = 0x15;
+    SYS_CTRL_RCC_REG->bit.OSCSRC = 0;
+    SYS_CTRL_RCC_REG->bit.MOSCDIS = 0;
+
+
+
+/*
 	#if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
         SYS_CTRL_MOSC_REG &= ~(1<<2);
-    /*Enable main oscillator */
+    /*Enable main oscillator 
 		SYS_CTRL_RCC_REG &= (u32)(~(1));
-    /*Select main oscillator */
+    /*Select main oscillator 
         SYS_CTRL_RCC_REG &= (u32)(~((3)<<4));
-    /* select crystal value */
+    /* select crystal value 
         SYS_CTRL_RCC_REG |=  CRYSTAL_VALUE<<6;
     #else 
         SCB_RCC_REG |= CLOCK_SOURCE<<4;
     #endif
 
-    /* Deep sleep or Run */
+    /* Deep sleep or Run 
     #if SLEEP_MODE_CONTROL == DEEP_SLEEP_MODE_CONTROL
         SCB_RCC_REG |= 1<<27;
     #elif   SLEEP_MODE_CONTROL == RUN_MODE_CLOCK_CONTROL
@@ -87,10 +100,9 @@ void Init_voidSCB_Clock(void)
     #elif PLL_STATE == NOT_USED
 		SYS_CTRL_RCC_REG |= 1<<11;
         SYS_CTRL_RCC_REG |= 1<<13;
-        while(GET_BIT(SYS_CTRL_PLL_STAT,0)!=1);
 
     #endif
-    /*enable divisor*/
+    /*enable divisor
     #if DIVIDER_STATE == USED
 
         SYS_CTRL_RCC_REG |= 1<<22;
@@ -103,6 +115,7 @@ void Init_voidSCB_Clock(void)
         SCB_RCC_REG |= 1<<20;
         SCB_RCC_REG |= PWM_CLOCK_DIVISOR<<17;
     #endif 
+*/
 
 }
 
@@ -142,6 +155,8 @@ void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MOD
 {
     SYS_CTRL_REGs->SYS_CTRL_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
 }
+
+
 /**********************************************************************************************************************
  *  END OF FILE: SYS_Ctrl.c
  *********************************************************************************************************************/

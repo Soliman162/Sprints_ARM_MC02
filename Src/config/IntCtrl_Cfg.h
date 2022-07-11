@@ -29,7 +29,18 @@
 */
 #define GROUP_PRIORITY_X_SUBPRIORITY_X      GROUP_PRIORITY_1_SUBPRIORITY_8
 
-#define MAX_INTRRUPT_NUMBER     2   
+#define MAX_INTRRUPT_NUMBER     2  
+
+
+#define TRAP_DIV_BY_0       DISABLED
+
+#define WAKE_UP_ON_PENDING  DISABLED
+
+#define SLEEP_ONISR_EXIT    DISABLED
+
+#define STACK_ALIGNMENT_ON_EXCEPTION_ENTRY      STACK_8_BYTE_ALIGNED
+
+#define TRAP_ON_UNALIGNED_ACCESS   DISABLED 
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS

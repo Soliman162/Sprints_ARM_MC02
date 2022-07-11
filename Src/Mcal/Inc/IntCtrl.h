@@ -54,6 +54,22 @@ extern u8 Intrrupt_u8SET[MAX_INTRRUPT_NUMBER][2];
 *******************************************************************************/
 
 void Init_voidIntCtrl(void);
+
+void Init_voidSCB(void);
+
+void Enable_voidFault(u8 Copy_u8Fault);
+void Disable_voidFault(u8 Copy_u8Fault);
+
+
+void DEEP_SLEEP_voidEnable(void);
+void DEEP_SLEEP_voidDisable(void);
+void RESET_voidSystem(void);
+
+void SET_voidFAULT_PENDING(u8 Copy_u8Fault);
+void CLR_voidFAULT_PENDING(u8 Copy_u8Fault);
+
+void SET_voidINTERRUPT_PENDING(u8 Copy_u8Eception);
+void CLEAR_voidINTERRUPT_PENDING(u8 Copy_u8Eception);
  
 #endif /* IntCrtl_H */
 

@@ -26,7 +26,7 @@
 #define CORTEX_M4_BASE_ADDRESS      0xE000E000
 #define SCB_BASE_ADDRESS            0x400FE000
 
-#define APINT_REG                        *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
+//#define APINT_REG                        *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
 
 #define SYS_CTRL_RCC_REG                 *((volatile u32 *)(SCB_BASE_ADDRESS+0x060))
 #define SYS_CTRL_MOSC_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
@@ -66,6 +66,25 @@ typedef struct{
 }SYS_CTRL_config_REGs;
  
  #define SYS_CTRL_REGs         ((SYS_CTRL_config_REGs *)(SCB_BASE_ADDRESS+0x500))
+
+ typedef struct
+ {
+    volatile u32 INTCTRL;
+    volatile u32 VTABLE;
+    volatile u32 APINT;
+    volatile u32 SYSCTRL;
+    volatile u32 CFGCTRL;
+    volatile u32 SYSPRI1;
+    volatile u32 SYSPRI2;
+    volatile u32 SYSPRI3;
+    volatile u32 SYSHNDCTRL;
+    volatile u32 FAULTSTAT;
+    volatile u32 HFAULTSTAT;
+    
+ }SCB_config_REGs;
+
+ #define SCB_REGs   ((SCB_config_REGs *)(CORTEX_M4_BASE_ADDRESS+0xD04))
+ 
 
 
  

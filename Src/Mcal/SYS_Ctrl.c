@@ -84,9 +84,10 @@ void Init_voidSCB_Clock(void)
 
         SYS_CTRL_RCC_REG |= 1<<22;
         SYS_CTRL_RCC_REG |= (SSDIV_DIVISOR<<23);
-    #elif
-        SCB_RCC_REG &= ~(1<<22);
+    #else 
+        SYS_CTRL_RCC_REG &= ~(1<<22);
     #endif
+
     #if PWM_CLOCK_DIVISOR_STATE == ENABLED
         SCB_RCC_REG |= 1<<20;
         SCB_RCC_REG |= PWM_CLOCK_DIVISOR<<17;
@@ -98,7 +99,7 @@ void Init_voidSCB_Clock(void)
         CLR_BIT(SCB_RCC_REG,13);
 
     #elif PLL_STATE == NOT_USED
-				SYS_CTRL_RCC_REG |= 1<<11;
+		SYS_CTRL_RCC_REG |= 1<<11;
     #endif
 
 

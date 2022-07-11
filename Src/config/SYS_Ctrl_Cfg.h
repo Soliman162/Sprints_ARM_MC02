@@ -62,7 +62,7 @@
     -USED
     -NOT_USED
 */
-#define DIVIDER_STATE   USED
+#define DIVIDER_STATE   NOT_USED
 
 #define PLL_STATE   NOT_USED
 

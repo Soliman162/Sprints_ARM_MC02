@@ -26,7 +26,20 @@
 #define CORTEX_M4_BASE_ADDRESS      0xE000E000
 #define SCB_BASE_ADDRESS            0x400FE000
 
-//#define APINT_REG                        *((volatile u32 *)(CORTEX_M4_BASE_ADDRESS+0xD0C))
+#define GPIO_PORT_A_AHB_BASE_ADRRESS        0x40058000
+#define GPIO_PORT_B_AHB_BASE_ADRRESS        0x40059000
+#define GPIO_PORT_C_AHB_BASE_ADRRESS        0x4005A000
+#define GPIO_PORT_D_AHB_BASE_ADRRESS        0x4005B000
+#define GPIO_PORT_E_AHB_BASE_ADRRESS        0x4005C000
+#define GPIO_PORT_F_AHB_BASE_ADRRESS        0x4005D000
+
+#define GPIO_PORT_A_APB_BASE_ADDRESS        0x40004000
+#define GPIO_port_B_APB_BASE_ADDRESS        0x40005000
+#define GPIO_port_C_APB_BASE_ADDRESS        0x40006000
+#define GPIO_port_D_APB_BASE_ADDRESS        0x40007000
+#define GPIO_port_E_APB_BASE_ADDRESS        0x40024000
+#define GPIO_port_F_APB_BASE_ADDRESS        0x40025000
+
 typedef struct{
     
         u32 MOSCDIS     :1;
@@ -121,9 +134,41 @@ typedef struct{
  }SCB_config_REGs;
 
  #define SCB_REGs   ((SCB_config_REGs *)(CORTEX_M4_BASE_ADDRESS+0xD04))
+
+typedef struct{
+
+    volatile u32 GPIODATA[256];
+    volatile u32 GPIODIR;
+    volatile u32 GPIOIS;
+    volatile u32 GPIOIBE;
+    volatile u32 GPIOIEV;
+    volatile u32 GPIOIM;
+    volatile u32 GPIORIS;
+    volatile u32 GPIOMIS;
+    volatile u32 GPIOICR;
+    volatile u32 GPIOAFSEL;
+
+    u32 Reserved[55];
+
+    volatile u32 GPIODR_2_4_8_R[3];
+
+    volatile u32 GPIO_OD_PU_PD_SL_R[4];
+    volatile u32 GPIODEN;
+    volatile u32 GPIOLOCK;
+    volatile u32 GPIOCR;
+    volatile u32 GPIOAMSEL;
+    volatile u32 GPIOPCTL;
+    volatile u32 GPIOADCCTL;
+    volatile u32 GPIODMACTL;
+
+}GPIO_CONFIG_REGs;
  
-
-
+#define GPIO_A_PRE   ((GPIO_CONFIG_REGs *)(GPIO_PORT_A_APB_BASE_ADDRESS))
+#define GPIO_B_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_B_APB_BASE_ADDRESS))
+#define GPIO_C_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_C_APB_BASE_ADDRESS))
+#define GPIO_D_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_D_APB_BASE_ADDRESS))
+#define GPIO_E_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_E_APB_BASE_ADDRESS))
+#define GPIO_F_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_F_APB_BASE_ADDRESS))
  
 #endif  /* MCU_HW_H */
 

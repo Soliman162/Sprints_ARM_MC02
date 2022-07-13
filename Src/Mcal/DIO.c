@@ -2,7 +2,7 @@
 /**********************************************************************************************************************
  *  FILE DESCRIPTION
  *  -----------------------------------------------------------------------------------------------------------------*/
-/**        \file  SCB.c
+/**        \file  DIO.c
  *        \brief  Nested Vector Interrupt Controller Driver
  *
  *      \details  The Driver Configure All MCU interrupts Priority into gorups and subgroups
@@ -14,13 +14,9 @@
  *  INCLUDES
  *********************************************************************************************************************/
 #include "std_types.h"
-#include "BIT_MATH.h"
 #include "MCU_HW.h"
-
-#include "SYS_Ctrl_types.h"
-#include "SYS_Ctrl_Cfg.h"
-#include "SYS_Ctrl.h"
-
+#include "DIO_types.h"
+#include "DIO.h"
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
 *********************************************************************************************************************/	
@@ -32,6 +28,7 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
+GPIO_CONFIG_REGs *GPIO_ARR[6] = {GPIO_A_PRE,GPIO_B_PRE,GPIO_C_PRE,GPIO_D_PRE,GPIO_E_PRE,GPIO_F_PRE};
 
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
@@ -47,9 +44,9 @@
 
 
 /******************************************************************************
-* \Syntax          : void SYS_Ctrl_Init(void)                                      
-* \Description     : initialize SYS_Ctrl\SYS_Ctrl Module by parsing the Configuration 
-*                    into SYS_Ctrl registers                                    
+* \Syntax          : void IntCrtl_Init(void)                                      
+* \Description     : initialize Nvic\SCB Module by parsing the Configuration 
+*                    into DIO registers                                    
 *                                                                             
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
@@ -57,60 +54,52 @@
 * \Parameters (out): None                                                      
 * \Return value:   : None
 *******************************************************************************/
-
-void Init_voidSCB_Clock(void)
+void DIO_voidWriteChannel(DIO_CHANNEL_TYPE Copy_enumChannel, DIO_LEVEL_TYPE Copy_enumLevel_type)
 {
-    SYS_CTRL_RCC_REG->bit.ACG = 0;
-    SYS_CTRL_RCC_REG->bit.SYSDIV = SSDIV_DIVISOR;
-    SYS_CTRL_RCC_REG->bit.USESYSDIV = 1;
-    SYS_CTRL_RCC_REG->bit.USEPWMDIV = 0;
-    SYS_CTRL_RCC_REG->bit.PWRDN = 1;
-    while(GET_BIT(SYS_CTRL_PLL_STAT,0)!=1);
-    SYS_CTRL_RCC_REG->bit.BYPASS = 1;
-    SYS_CTRL_RCC_REG->bit.XTAL = 0x15;
-    SYS_CTRL_RCC_REG->bit.OSCSRC = 0;
-    SYS_CTRL_RCC_REG->bit.MOSCDIS = 0;
-
+    GPIO_ARR[Copy_enumChannel/8]->GPIODATA[1<<(Copy_enumChannel%8)] = (Copy_enumLevel_type<<(Copy_enumChannel%8));
 }
 
-void SCB_voidReset(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+DIO_LEVEL_TYPE DIO_voidReadChannel(DIO_CHANNEL_TYPE Copy_enumChannel)
 {
-    /* Set reset bit */
-    SYS_CTRL_REGs->SYS_CTRL_RESET_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
-    /* clear reset bit*/
-    SYS_CTRL_REGs->SYS_CTRL_RESET_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
-    /* wait the PERIPHERAL become ready */
-    while(GET_BIT(SYS_CTRL_REGs->SYS_CTRL_PERIPHERAL_READY_REGs[Copy_enumModuleName],Copy_enumModuleIndex)==0);
+    return GPIO_ARR[Copy_enumChannel/8]->GPIODATA[1<<(Copy_enumChannel%8)];
 }
 
-void SCB_voidEnable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+void DIO_voidWritePort(DIO_PORT_TYPE COPY_enumPort,u8 Copy_enumLevelType )
 {
-    SYS_CTRL_REGs->SYS_CTRL_RUN_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
-}
-void SCB_voidDisable_Clock_Run_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
-{
-    SYS_CTRL_REGs->SYS_CTRL_RUN_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    GPIO_ARR[COPY_enumPort]->GPIODATA[255] = Copy_enumLevelType;
 }
 
-void SCB_voidEnable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+u8 DIO_voidReadPort(DIO_PORT_TYPE COPY_enumPort)
 {
-    SYS_CTRL_REGs->SYS_CTRL_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
-}
-void SCB_voidDisable_Clock_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
-{
-    SYS_CTRL_REGs->SYS_CTRL_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
+    return  GPIO_ARR[COPY_enumPort]->GPIODATA[255];
 }
 
-void SCB_voidEnable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
+void DIO_voidFlip_Channel(DIO_CHANNEL_TYPE  Copy_enumChannel )
 {
-    SYS_CTRL_REGs->SYS_CTRL_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] |= (1<<Copy_enumModuleIndex);
+    GPIO_ARR[Copy_enumChannel/8]->GPIODATA[1<<Copy_enumChannel] ^= (1<<Copy_enumChannel);
 }
-void SCB_voidDisable_Clock_Deep_Sleep_Mode(MODULES_NAME Copy_enumModuleName, MODULE_INDEX Copy_enumModuleIndex)
-{
-    SYS_CTRL_REGs->SYS_CTRL_DEEP_SLEEP_MODE_GC_REGs[Copy_enumModuleName] &= ~(1<<Copy_enumModuleIndex);
-}
-
 
 /**********************************************************************************************************************
- *  END OF FILE: SYS_Ctrl.c
+ *  END OF FILE: DIO.c
  *********************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

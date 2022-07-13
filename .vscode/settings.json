@@ -3,6 +3,12 @@
         "std_types.h": "c",
         "intctrl_types.h": "c",
         "mcu_hw.h": "c",
-        "intctrl.h": "c"
+        "intctrl.h": "c",
+        "dio.h": "c",
+        "dio_cfg.h": "c",
+        "port_cfg.h": "c",
+        "port.h": "c",
+        "port_types.h": "c",
+        "dio_types.h": "c"
     }
 }

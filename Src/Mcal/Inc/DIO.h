@@ -40,17 +40,7 @@
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
  
-/******************************************************************************
-* \Syntax          : void IntCrtl_Init(void)                                      
-* \Description     : initialize DIO Module by parsing the Configuration 
-*                    into DIO registers                                    
-*                                                                             
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
+void DIO_voidInit_Pin(const PORT_CONFIG_TYPE *Copy_Pin);
 
 void DIO_voidWriteChannel(DIO_CHANNEL_TYPE Copy_enumChannel, DIO_LEVEL_TYPE Copy_enumLevel_type);
 DIO_LEVEL_TYPE DIO_voidReadChannel(DIO_CHANNEL_TYPE Copy_enumChannel);

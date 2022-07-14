@@ -15,7 +15,8 @@
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-
+#include "std_types.h"
+#include "MCU_HW.h" 
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
@@ -108,6 +109,38 @@ typedef enum{
 
 }DIO_LEVEL_TYPE;
 
+typedef enum{
+
+    OUT_PUT_CURRENT_STREGNTH_2MA=0,
+    OUT_PUT_CURRENT_STREGNTH_4MA,
+    OUT_PUT_CURRENT_STREGNTH_8MA
+
+}PIN_OUTPUT_CURRENT;
+
+typedef enum{
+
+    GPIO_INPUT=0,
+    GPIO_OUTPUT
+
+}PIN_DIRECTION_TYPE;
+
+typedef enum{
+
+    OPEN_DRAIN=0,
+    PULL_UP,
+    PULL_DOWN,
+    SLEW_RATE,
+
+}PIN_INTERNAL_ATTACHMENT_TYPE;
+
+typedef struct{
+
+    u8 Pin_Number;
+    PIN_DIRECTION_TYPE Pin_Direction;
+    PIN_INTERNAL_ATTACHMENT_TYPE Pin_InternalAttach;
+    PIN_OUTPUT_CURRENT Pin_OutPut_Current;
+
+}PORT_CONFIG_TYPE;
  
 #endif  /* DIO_TYPES_H */
 

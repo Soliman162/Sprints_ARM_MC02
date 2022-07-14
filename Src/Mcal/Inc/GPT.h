@@ -40,6 +40,16 @@ extern GPT_CONFIG_TYPE GPT_config_arr[6] ;
 
 void Init_voidGPT(const GPT_CONFIG_TYPE *Copy_type);
 
+void GPT_voidStart_Timer(const GPT_CONFIG_TYPE *Copy_type, u32 Copy_u32Start_Value);
+void GPT_voidStop_Timer(const GPT_CONFIG_TYPE *Copy_type);
+
+void GPT_voidEnableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
+void GPT_voidDisableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
+
+u32 GET_voidElapsed_Time(const GPT_CONFIG_TYPE *Copy_type);
+u32 GET_voidRemainingTime(const GPT_CONFIG_TYPE *Copy_type);
+
+void CLR_voidInterrupt_Flag(const GPT_CONFIG_TYPE *Copy_type);
  
 #endif /* IntCrtl_H */
 

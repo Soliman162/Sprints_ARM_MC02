@@ -32,27 +32,6 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-
-typedef struct 
-{
-    CHANNEL_ID_CONFIG Channel_ID;
-    CHANNEL_MODE_CONFIG Channel_Mode;
-    u8 Channel_MAX_BIT_NUM;//timer bit
-    u8 Channel_MAX_Frequency;//shift
-    void *func(void);
-   
-}GPT_CONFIG_TYPE;
-
-
-typedef enum {
-
-    GPT_1US_16BIT_TIMER=0,    
-    GPT_1US_24BIT_TIMER,
-    GPT_1US_32BIT_TIMER,
-    GPT_100US_32BIT_TIMER
-
-}GPT_TYPE_CONFIG;
-
 typedef enum {
 
     CHANNEL_ID_0=0,
@@ -71,7 +50,23 @@ typedef enum{
 
 }CHANNEL_MODE_CONFIG;
 
+typedef enum {
 
+    GPT_1US_16BIT_TIMER=0,    
+    GPT_1US_24BIT_TIMER,
+    GPT_1US_32BIT_TIMER,
+    GPT_100US_32BIT_TIMER
+
+}GPT_TYPE_CONFIG;
+
+
+typedef struct 
+{
+    CHANNEL_ID_CONFIG Channel_ID;
+    CHANNEL_MODE_CONFIG Channel_Mode;
+    void *func(void);
+   
+}GPT_CONFIG_TYPE;
 
  
 #endif  /* INTCTRL_TYPES_H */

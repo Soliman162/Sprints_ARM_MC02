@@ -21,7 +21,6 @@
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
-
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
@@ -40,36 +39,54 @@ extern u8 Intrrupt_u8SET[MAX_INTRRUPT_NUMBER][2];
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
- 
-/******************************************************************************
-* \Syntax          : void IntCrtl_Init(void)                                      
-* \Description     : initialize Nvic\SCB Module by parsing the Configuration 
-*                    into Nvic\SCB registers                                    
-*                                                                             
-* \Sync\Async      : Synchronous                                               
-* \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : None                     
-* \Parameters (out): None                                                      
-* \Return value:   : None
-*******************************************************************************/
 
 void Init_voidIntCtrl(void);
 
-void Init_voidSCB(void);
+void Enable_voidINT(INTRRUPTS_Types Copy_enumINT);
+void Disable_voidINT(INTRRUPTS_Types Copy_enumINT);
 
-void Enable_voidFault(u8 Copy_u8Fault);
-void Disable_voidFault(u8 Copy_u8Fault);
+void SET_voidPENDING_INT(INTRRUPTS_Types Copy_enumINT);
+void CLR_voidPENDING_INT(INTRRUPTS_Types Copy_enumINT);
 
+u8 Is_u8INT_Active(INTRRUPTS_Types Copy_enumINT);
+void NMI_voidSET_PENDING(void);
+
+void SV_voidSET_PENDING(void);
+void SV_void_CLR_PENDING(void);
+
+void SYS_TICK_voidSET_PENDING(void);
+void SYS_TICK_voidCLR_PENDING(void);
+
+u8 IS_u8INT_PENDING(void);
+
+void USAGE_FAULT_voidENABLE(void);
+void BUS_FAULT_voidENABLE(void);
+void MEMORY_MANAGMEDNT_FAULT_voidENABLE(void);
+
+void USAGE_FAULT_voidDISABLE(void);
+void BUS_FAULT_voidDISABLE(void);
+void MEMORY_MANAGMEDNT_FAULT_voidDISABLE(void);
+
+void SVC_CALL_voidSET_PENDING(void);
+void BUS_FAULT_voidSET_PENDING(void);
+void MEMORY_MANAGMENT_FAULT_voidSET_PENDING(void);
+void USAGE_FAULT_voidSET_PENDING(void);
+
+void SVC_CALL_voidCLR_PENDING(void);
+void BUS_FAULT_voidCLR_PENDING(void);
+void MEMORY_MANAGMENT_FAULT_voidCLR_PENDING(void);
+void USAGE_FAULT_voidCLR_PENDING(void);
+
+
+void GENERATE_voidGenerated_INTRRUPT(INTRRUPTS_Types Copy_enumINT);
 
 void DEEP_SLEEP_voidEnable(void);
 void DEEP_SLEEP_voidDisable(void);
 void RESET_voidSystem(void);
 
-void SET_voidFAULT_PENDING(u8 Copy_u8Fault);
-void CLR_voidFAULT_PENDING(u8 Copy_u8Fault);
 
-void SET_voidINTERRUPT_PENDING(u8 Copy_u8Eception);
-void CLEAR_voidINTERRUPT_PENDING(u8 Copy_u8Eception);
+
+
  
 #endif /* IntCrtl_H */
 

@@ -40,6 +40,15 @@
 #define GPIO_port_E_APB_BASE_ADDRESS        0x40024000
 #define GPIO_port_F_APB_BASE_ADDRESS        0x40025000
 
+
+#define GPT_16_32_0_BASE_ADDRESS    0x40030000    
+#define GPT_16_32_1_BASE_ADDRESS    0x40031000
+#define GPT_16_32_2_BASE_ADDRESS    0x40032000
+#define GPT_16_32_3_BASE_ADDRESS    0x40033000
+#define GPT_16_32_4_BASE_ADDRESS    0x40034000
+#define GPT_16_32_5_BASE_ADDRESS    0x40035000
+
+
 typedef struct{
     
         u32 MOSCDIS     :1;
@@ -84,23 +93,28 @@ typedef union
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
  *********************************************************************************************************************/
-typedef struct{
-
-    volatile u32 PRI[35];
-
-}PRI_Int_Config_Reg;
-
-#define PRI_REGS        ((PRI_Int_Config_Reg *)(CORTEX_M4_BASE_ADDRESS+0x400))
-
+/***************************************************NVIC**************************************************************/
 typedef struct{
 
     volatile u32 EN[5];
+    volatile u32 RESERVED_1[27];
+    volatile u32 DIS[5];
+    volatile u32 RESERVED_2[27];
+    volatile u32 SET_PED[5];
+    volatile u32 RESERVED_3[27];
+    volatile u32 CLR_PED[5];
+    volatile u32 RESERVED_4[27];
+    volatile u32 ACT_INT[5];
+    volatile u32 RESERVED_5[59];
+    volatile u32 PRI[35];
+    volatile u32 RESERVED_6[669];
+    volatile u32 SWTRIG;
 
-}EN_Int_Config_Reg;
+}NVIC_REGs_CONFIG;
 
-#define  EN_REGs    ((EN_Int_Config_Reg *)(CORTEX_M4_BASE_ADDRESS+0x100))
-
-
+#define NVIC_REGS        ((NVIC_REGs_CONFIG *)(CORTEX_M4_BASE_ADDRESS+0x100))
+/****************************************************************************************************************/
+/************************************************SYS_CTRL*******************************************************/
 typedef struct{
 
     volatile u32 SYS_CTRL_RESET_REGs[24];
@@ -116,7 +130,8 @@ typedef struct{
 }SYS_CTRL_config_REGs;
  
  #define SYS_CTRL_REGs         ((SYS_CTRL_config_REGs *)(SCB_BASE_ADDRESS+0x500))
-
+/****************************************************************************************************************/
+/*********************************************SCB****************************************************************/
  typedef struct
  {
     volatile u32 INTCTRL;
@@ -134,7 +149,8 @@ typedef struct{
  }SCB_config_REGs;
 
  #define SCB_REGs   ((SCB_config_REGs *)(CORTEX_M4_BASE_ADDRESS+0xD04))
-
+/******************************************************************************************************/
+/*************************************GPIO*************************************************************/
 typedef struct{
 
     volatile u32 GPIODATA[256];
@@ -169,6 +185,36 @@ typedef struct{
 #define GPIO_D_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_D_APB_BASE_ADDRESS))
 #define GPIO_E_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_E_APB_BASE_ADDRESS))
 #define GPIO_F_PRE   ((GPIO_CONFIG_REGs *)(GPIO_port_F_APB_BASE_ADDRESS))
+
+/********************************************************************************************************************/
+/*******************************************GPT**********************************************************************/
+
+typedef struct{
+
+    volatile u32 GPTMCFG;
+    volatile u32 GPTMT_A_B_MR[2];
+    volatile u32 GPTMCTL;
+    volatile u32 GPTMSYNC;
+    volatile u32 Reserved_1;
+    volatile u32 GPTMIMR;
+    volatile u32 GPTMRIS;
+    volatile u32 GPTMMIS;
+    volatile u32 GPTMICR;
+    volatile u32 GPTMT_A_B_ILR[2];
+    volatile u32 GPTMT_A_B_MATCHER[2];
+    volatile u32 GPTMT_A_B_PR[2];
+    volatile u32 GPTMT_A_B_PMR[2];
+    volatile u32 GPTMT_A_B_R[2];
+    volatile u32 GPTMT_A_B_V[2];
+
+}GPT_REGs_CONFIG;
+
+#define GPT0_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_0_BASE_ADDRESS))
+#define GPT1_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_1_BASE_ADDRESS))
+#define GPT2_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_2_BASE_ADDRESS))
+#define GPT3_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_3_BASE_ADDRESS))
+#define GPT4_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_4_BASE_ADDRESS))
+#define GPT5_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_5_BASE_ADDRESS))
  
 #endif  /* MCU_HW_H */
 

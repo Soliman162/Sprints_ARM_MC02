@@ -103,8 +103,8 @@ typedef enum{
 
 typedef enum{
 
-    IN_PUT=0,
-    OUT_PUT
+    GPIO_INPUT=0,
+    GPIO_OUTPUT
 
 }PIN_DIRECTION_TYPE;
 

@@ -1,57 +1,82 @@
+
+
+
 /**********************************************************************************************************************
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  IntCtrl_Cfg.h
+ *         File:  IntCtrl_Types.h
  *       Module:  -
  *
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-#ifndef INTCTRL_CFG_H
-#define INTCTRL_CFG_H
+
+#ifndef INTCTRL_TYPES_H
+#define INTCTRL_TYPES_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "IntCtrl_types.h"
-
+#include "std_types.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-/*
-    Options:-
 
-        GROUP_PRIORITY_8_SUBPRIORITY_1 
-        GROUP_PRIORITY_4_SUBPRIORITY_2 
-        GROUP_PRIORITY_2_SUBPRIORITY_4 
-        GROUP_PRIORITY_1_SUBPRIORITY_8 
-*/
-#define GROUP_PRIORITY_X_SUBPRIORITY_X      GROUP_PRIORITY_1_SUBPRIORITY_8
-/*****************************************************************************************/
-#define MAX_INTRRUPT_NUMBER     2  
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
  *********************************************************************************************************************/
 
-#define TRAP_DIV_BY_0       DISABLED
 
-#define WAKE_UP_ON_PENDING  DISABLED
-
-#define SLEEP_ONISR_EXIT    DISABLED
-
-#define STACK_ALIGNMENT_ON_EXCEPTION_ENTRY      STACK_8_BYTE_ALIGNED
-
-#define TRAP_ON_UNALIGNED_ACCESS   DISABLED 
-
-#define SW_UNPREVILLEDGE_ACCESS     ENABLE
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
+
+typedef struct 
+{
+    CHANNEL_ID_CONFIG Channel_ID;
+    CHANNEL_MODE_CONFIG Channel_Mode;
+    u8 Channel_MAX_BIT_NUM;//timer bit
+    u8 Channel_MAX_Frequency;//shift
+    void *func(void);
+   
+}GPT_CONFIG_TYPE;
+
+
+typedef enum {
+
+    GPT_1US_16BIT_TIMER=0,    
+    GPT_1US_24BIT_TIMER,
+    GPT_1US_32BIT_TIMER,
+    GPT_100US_32BIT_TIMER
+
+}GPT_TYPE_CONFIG;
+
+typedef enum {
+
+    CHANNEL_ID_0=0,
+    CHANNEL_ID_1,
+    CHANNEL_ID_2,
+    CHANNEL_ID_3,
+    CHANNEL_ID_4,
+    CHANNEL_ID_5
+
+}CHANNEL_ID_CONFIG;
+
+typedef enum{
+
+    GPT_MODE_ONE_SHOT=1,
+    GPT_MODE_PERIODIC
+
+}CHANNEL_MODE_CONFIG;
+
+
+
  
-#endif  /* INTCTRL_CFG_H */
+#endif  /* INTCTRL_TYPES_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCtrl_Cfg.h
+ *  END OF FILE: IntCtrl_Types.h
  *********************************************************************************************************************/
+

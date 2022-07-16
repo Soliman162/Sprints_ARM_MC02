@@ -73,7 +73,7 @@ void Init_voidIntCtrl(void)
     
 
     /* set group_priorty / subgroub priority APINT in SCB*/
-    SCB_REGs->APINT |= (APINT_REG_KEY|(GROUP_PRIORITY_X_SUBPRIORITY_X<<8));
+    SCB_REGs->APINT = (APINT_REG_KEY|(GROUP_PRIORITY_X_SUBPRIORITY_X<<8));
 
     /* set group_priorty / subgroub priority in NVIC */
     for(LOC_i_u8=0;LOC_i_u8<MAX_INTRRUPT_NUMBER;LOC_i_u8++)

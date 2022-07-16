@@ -46,6 +46,8 @@ void GPT_voidStop_Timer(const GPT_CONFIG_TYPE *Copy_type);
 void GPT_voidEnableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
 void GPT_voidDisableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
 
+//void GPT_voidSET_IRQ_Function(void *Func(void));
+
 u32 GET_voidElapsed_Time(const GPT_CONFIG_TYPE *Copy_type);
 u32 GET_voidRemainingTime(const GPT_CONFIG_TYPE *Copy_type);
 

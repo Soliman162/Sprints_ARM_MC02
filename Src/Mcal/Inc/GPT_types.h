@@ -49,7 +49,7 @@ typedef enum{
     GPT_MODE_PERIODIC
 
 }CHANNEL_MODE_CONFIG;
-
+/*
 typedef enum {
 
     GPT_1US_16BIT_TIMER=0,    
@@ -58,13 +58,13 @@ typedef enum {
     GPT_100US_32BIT_TIMER
 
 }GPT_TYPE_CONFIG;
+*/
 
 
 typedef struct 
 {
     CHANNEL_ID_CONFIG Channel_ID;
     CHANNEL_MODE_CONFIG Channel_Mode;
-    void *func(void);
    
 }GPT_CONFIG_TYPE;
 

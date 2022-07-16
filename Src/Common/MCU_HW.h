@@ -87,7 +87,7 @@ typedef union
 
 #define SYS_CTRL_RCC_REG                 ((volatile SYS_CTRL_RCC_config *)(SCB_BASE_ADDRESS+0x060))
 
-#define SYS_CTRL_MOSC_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
+#define SYS_CTRL_MOSCCTL_REG                *((volatile u32 *)(SCB_BASE_ADDRESS+0x07C))
 #define SYS_CTRL_PLL_STAT                *((volatile u32 *)(SCB_BASE_ADDRESS+0x168)) 
 
 /**********************************************************************************************************************

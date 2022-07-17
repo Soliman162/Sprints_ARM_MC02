@@ -47,7 +47,6 @@
 void Init_voidSYS_Ctrl_Clock(void)
 {
     #if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
-
         /*enable main OSC*/
         SYS_CTRL_RCC_REG->bit.MOSCDIS = 0;
         /*select the input source for OSC*/

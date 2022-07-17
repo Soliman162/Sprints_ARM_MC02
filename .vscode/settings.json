@@ -9,6 +9,9 @@
         "port_cfg.h": "c",
         "port.h": "c",
         "port_types.h": "c",
-        "dio_types.h": "c"
+        "dio_types.h": "c",
+        "wdt_types.h": "c",
+        "gpt.h": "c",
+        "gpt_types.h": "c"
     }
 }

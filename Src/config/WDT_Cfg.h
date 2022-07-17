@@ -1,28 +1,25 @@
-
-
-
 /**********************************************************************************************************************
 
  *  FILE DESCRIPTION
  *  -------------------------------------------------------------------------------------------------------------------
- *         File:  IntCtrl_Types.h
+ *         File:  IntCtrl_Cfg.h
  *       Module:  -
  *
  *  Description:  <Write File DESCRIPTION here>     
  *  
  *********************************************************************************************************************/
-
-#ifndef GPT_TYPES_H
-#define GPT_TYPES_H
+#ifndef WDT_CFG_H
+#define WDT_CFG_H
 
 /**********************************************************************************************************************
  * INCLUDES
  *********************************************************************************************************************/
-#include "std_types.h"
+#include "WDT_types.h"
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
 
+/*****************************************************************************************/
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -32,46 +29,26 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-typedef enum {
+#define WDT_MAX_TIME_OUT_M_SEC      10000
+#define WDT_INIT_TIME_OUT_M_SEC     5000
 
-    CHANNEL_ID_0=0,
-    CHANNEL_ID_1,
-    CHANNEL_ID_2,
-    CHANNEL_ID_3,
-    CHANNEL_ID_4,
-    CHANNEL_ID_5
-
-}CHANNEL_ID_CONFIG;
-
-typedef enum{
-
-    GPT_MODE_ONE_SHOT=1,
-    GPT_MODE_PERIODIC
-
-}CHANNEL_MODE_CONFIG;
 /*
-typedef enum {
-
-    GPT_1US_16BIT_TIMER=0,    
-    GPT_1US_24BIT_TIMER,
-    GPT_1US_32BIT_TIMER,
-    GPT_100US_32BIT_TIMER
-
-}GPT_TYPE_CONFIG;
+    -WDT_INDEX_0
+    -WDT_INDEX_1
 */
+#define     WDT_MODULE_INDEX    WDT_INDEX_0
+
+/*
+    -ENABLED          
+    -DISABLED     
+*/
+#define WDT_RESET_STATE     ENABLED
+
+#define WDT_INTRRUPT_TYPE   WDT_STANDARD_INTRRUPT
 
 
-typedef struct 
-{
-    CHANNEL_ID_CONFIG Channel_ID;
-    CHANNEL_MODE_CONFIG Channel_Mode;
-   
-}GPT_CONFIG_TYPE;
-
- 
-#endif  /* INTCTRL_TYPES_H */
+#endif  /* INTCTRL_CFG_H */
 
 /**********************************************************************************************************************
- *  END OF FILE: IntCtrl_Types.h
+ *  END OF FILE: IntCtrl_Cfg.h
  *********************************************************************************************************************/
-

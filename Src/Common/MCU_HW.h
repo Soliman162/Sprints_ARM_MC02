@@ -26,6 +26,9 @@
 #define CORTEX_M4_BASE_ADDRESS      0xE000E000
 #define SCB_BASE_ADDRESS            0x400FE000
 
+#define WDT0_BASE_ADDRESS           0x40000000
+#define WDT1_BASE_ADDRESS           0x40001000
+
 #define GPIO_PORT_A_AHB_BASE_ADRRESS        0x40058000
 #define GPIO_PORT_B_AHB_BASE_ADRRESS        0x40059000
 #define GPIO_PORT_C_AHB_BASE_ADRRESS        0x4005A000
@@ -215,7 +218,31 @@ typedef struct{
 #define GPT3_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_3_BASE_ADDRESS))
 #define GPT4_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_4_BASE_ADDRESS))
 #define GPT5_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_5_BASE_ADDRESS))
+/********************************************************************************************/
+/*********************************WDT********************************************************/
  
+typedef struct 
+{
+    volatile u32 WDTLOAD;
+    volatile u32 WDTVALUE;
+    volatile u32 WDTCTL;
+    volatile u32 WDTICR;
+    volatile u32 WDTRIS;
+    volatile u32 WDTMIS;
+    volatile u32 Reserved_1[256];
+    volatile u32 WDTTEST;
+    volatile u32 Reserved_2[505];
+    volatile u32 WDTLOCK;
+
+}WDT_REGs_CONFIG;
+
+#define     WDT0_REGs      ((WDT_REGs_CONFIG *)WDT0_BASE_ADDRESS)
+#define     WDT1_REGs      ((WDT_REGs_CONFIG *)WDT1_BASE_ADDRESS)
+
+
+
+
+
 #endif  /* MCU_HW_H */
 
 /**********************************************************************************************************************

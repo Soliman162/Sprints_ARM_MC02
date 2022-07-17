@@ -29,11 +29,8 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-u8 Intrrupt_u8SET[MAX_INTRRUPT_NUMBER][2] = {
-                                                {UART0,GROUP_PRIORITY_0_SUBPRIORITY_1},
-                                                {ADC0_Sequence_0,GROUP_PRIORITY_0_SUBPRIORITY_2}, 
-                                            };
-
+u8 Intrrupt_u8SET[MAX_INTRRUPT_NUMBER][2] = {{Bit_Timer_16_32_0A,GROUP_PRIORITY_0_SUBPRIORITY_0},
+																						{Bit_Timer_16_32_1A,GROUP_PRIORITY_0_SUBPRIORITY_1}};
 
 /**********************************************************************************************************************
  *  END OF FILE: IntCtrl_Lcfg.c

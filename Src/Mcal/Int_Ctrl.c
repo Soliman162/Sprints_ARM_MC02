@@ -70,8 +70,6 @@ void Init_voidIntCtrl(void)
     u8 LOC_j_u8;
     u8 LOC_N_u8;
 
-    
-
     /* set group_priorty / subgroub priority APINT in SCB*/
     SCB_REGs->APINT = (APINT_REG_KEY|(GROUP_PRIORITY_X_SUBPRIORITY_X<<8));
 
@@ -265,24 +263,4 @@ void DEEP_SLEEP_voidDisable(void)
 /**********************************************************************************************************************
  *  END OF FILE: IntCrtl.c
  *********************************************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

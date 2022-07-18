@@ -101,7 +101,7 @@ void CLR_voidInterrupt_Flag(const GPT_CONFIG_TYPE *Copy_type)
     GPT_ARR[Copy_type->Channel_ID]->GPTMICR |= 1;
 }
 
-u8 Check_u8Timer_State(const GPT_CONFIG_TYPE *Copy_type)
+u8 Is_u8Timer_Finish(const GPT_CONFIG_TYPE *Copy_type)
 {
 	return (GET_BIT(GPT_ARR[Copy_type->Channel_ID]->GPTMRIS,0)); 
 }

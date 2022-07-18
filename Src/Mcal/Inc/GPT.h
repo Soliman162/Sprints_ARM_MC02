@@ -46,7 +46,7 @@ void GPT_voidStop_Timer(const GPT_CONFIG_TYPE *Copy_type);
 void GPT_voidEnableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
 void GPT_voidDisableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
 
-u8 Check_u8Timer_State(const GPT_CONFIG_TYPE *Copy_type);
+u8 Is_u8Timer_Finish(const GPT_CONFIG_TYPE *Copy_type);
 //void GPT_voidSET_IRQ_Function(void *Func(void));
 
 u32 GET_voidElapsed_Time(const GPT_CONFIG_TYPE *Copy_type);

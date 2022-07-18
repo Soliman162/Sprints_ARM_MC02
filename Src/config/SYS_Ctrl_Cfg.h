@@ -64,7 +64,7 @@
 */
 #define DIVIDER_STATE   ENABLED
 
-#define PLL_STATE   DISABLED
+#define PLL_STATE   ENABLED
 
 #if DIVIDER_STATE == ENABLED
 /*

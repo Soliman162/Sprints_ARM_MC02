@@ -14,8 +14,10 @@
  *  INCLUDES
  *********************************************************************************************************************/
 #include "std_types.h"
+#include "BIT_MATH.h"
 #include "MCU_HW.h"
 #include "GPT_types.h"
+#include "GPT_Cfg.h"
 #include "GPT.h"
 
 /**********************************************************************************************************************
@@ -97,6 +99,11 @@ u32 GET_voidRemainingTime(const GPT_CONFIG_TYPE *Copy_type)
 void CLR_voidInterrupt_Flag(const GPT_CONFIG_TYPE *Copy_type)
 {
     GPT_ARR[Copy_type->Channel_ID]->GPTMICR |= 1;
+}
+
+u8 Check_u8Timer_State(const GPT_CONFIG_TYPE *Copy_type)
+{
+	return (GET_BIT(GPT_ARR[Copy_type->Channel_ID]->GPTMRIS,0)); 
 }
 
 /**********************************************************************************************************************

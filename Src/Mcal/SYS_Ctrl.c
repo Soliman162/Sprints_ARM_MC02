@@ -49,7 +49,7 @@ void Init_voidSYS_Ctrl_Clock(void)
     #if CLOCK_SOURCE == MOSC_MAIN_OSCILLATOR_16_MHZ
         /*enable main OSC*/
         SYS_CTRL_RCC_REG->bit.MOSCDIS = 0;
-	SYS_CTRL_RCC_REG->reg = 0x000000000;
+				SYS_CTRL_RCC_REG->reg = 0x000000000;
         /*select the input source for OSC*/
         SYS_CTRL_RCC_REG->bit.OSCSRC = 0;
         /* Select the crystal value */

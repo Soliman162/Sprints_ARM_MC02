@@ -54,10 +54,10 @@ void DIO_voidWriteChannel(DIO_CHANNEL_TYPE Copy_enumChannel, DIO_LEVEL_TYPE Copy
 {
 	if(Copy_enumLevel_type == DIO_HIGH)
 	{
-		GPIO_ARR[Copy_enumChannel/8]->GPIODATA[255] |= (u32)(Copy_enumLevel_type<<(Copy_enumChannel%8));
+		GPIO_ARR[Copy_enumChannel/8]->GPIODATA[255] |= (u32)(1<<(Copy_enumChannel%8));
 	}else if( Copy_enumLevel_type == DIO_LOW)
 	{
-		GPIO_ARR[Copy_enumChannel/8]->GPIODATA[255] &= (u32)(~(Copy_enumLevel_type<<(Copy_enumChannel%8)));
+		GPIO_ARR[Copy_enumChannel/8]->GPIODATA[255] &= (u32)(~(1<<(Copy_enumChannel%8)));
 	}
 }
 

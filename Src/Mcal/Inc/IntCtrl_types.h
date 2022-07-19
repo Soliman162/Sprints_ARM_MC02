@@ -175,9 +175,7 @@ typedef enum{
 #define     ENABLE      1
 #define     DISABLED    0
 
-#define     USAGE_FAULT                 18
-#define     BUS_FAULT                   17
-#define     MEMORY_MANAGMENT_FAULT      16
+
 
  
 #endif  /* INTCTRL_TYPES_H */

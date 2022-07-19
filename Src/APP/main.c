@@ -46,9 +46,9 @@ int main(void)
     DIO_voidInit_Pin(&LED_0);
 	
     Init_voidGPT(&TIMER_0);
-	  Init_voidGPT(&TIMER_1);
+	Init_voidGPT(&TIMER_1);
 
-		Led_voidCtrl( 3 , 1  );
+	Led_voidCtrl( 3 , 1  );
 		
     while (1)
     {

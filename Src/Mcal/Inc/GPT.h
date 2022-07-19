@@ -43,7 +43,7 @@ void Init_voidGPT(const GPT_CONFIG_TYPE *Copy_type);
 void GPT_voidStart_Timer(const GPT_CONFIG_TYPE *Copy_type, u32 Copy_u32Start_Value);
 void GPT_voidStop_Timer(const GPT_CONFIG_TYPE *Copy_type);
 
-void GPT_voidEnableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
+void GPT_voidEnableInterrupt(const GPT_CONFIG_TYPE *Copy_type,void (*ISR_ptrAddr)(void));
 void GPT_voidDisableInterrupt(const GPT_CONFIG_TYPE *Copy_type);
 
 u8 Is_u8Timer_Finish(const GPT_CONFIG_TYPE *Copy_type);

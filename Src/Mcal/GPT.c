@@ -15,9 +15,7 @@
  *********************************************************************************************************************/
 #include "std_types.h"
 #include "BIT_MATH.h"
-#include "stdlib.h"
 #include "MCU_HW.h"
-#include "GPT_types.h"
 #include "GPT_Cfg.h"
 #include "GPT.h"
 

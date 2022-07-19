@@ -3,21 +3,19 @@
 #include "DIO.h"
 #include "GPT.h"
 
+static u32 ON_u32Tick_Time = 0;
+static u32 OFF_u32Tick_Time = 0;
+
 static GPT_CONFIG_TYPE TIMER_0 = {GPT_1US_32BIT_TIMER,CHANNEL_ID_0,GPT_MODE_PERIODIC};
 static GPT_CONFIG_TYPE TIMER_1 = {GPT_1US_32BIT_TIMER,CHANNEL_ID_1,GPT_MODE_PERIODIC};
 
 static PORT_CONFIG_TYPE LED_0  = {PIN_F1,GPIO_OUTPUT,PULL_UP,OUT_PUT_CURRENT_STREGNTH_8MA};
 
-static u32 ON_u32Time = 0;
-static u32 OFF_u32Time = 0;
-
 void Led_voidCtrl(u16 ON_u16Time, u16 OFF_u16Time);
-
 
 void Timeer0_ISR(void);
 void Timeer1_ISR(void);
 
-	
 int main(void)
 {
 	/*
@@ -37,9 +35,10 @@ int main(void)
 		0x40000000, 0x4000FFFF
 	
 	*/
-	Init_voidIntCtrl();
+	 Init_voidIntCtrl();
 
 	 Init_voidSYS_Ctrl_Clock();
+	
 	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_INPUT_OUTPUT,  MODULE_5);
 	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_0);
 	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_1);
@@ -49,32 +48,14 @@ int main(void)
     Init_voidGPT(&TIMER_0);
 	  Init_voidGPT(&TIMER_1);
 
-
-    GPT_voidEnableInterrupt(&TIMER_0,&Timeer0_ISR);
-	  GPT_voidEnableInterrupt(&TIMER_1,&Timeer1_ISR);
-
 		Led_voidCtrl( 3 , 1  );
 		
     while (1)
     {
-			/*
-       if(GET_voidRemainingTime(&TIMER_0)==0)
-			 {
-				  DIO_voidWriteChannel(LED_0.Pin_Number,DIO_LOW);
-				 GPT_voidStop_Timer(&TIMER_0);
-					GPT_voidStart_Timer(&TIMER_1,OFF_u32Time);
-				 
-			 }else if(GET_voidRemainingTime(&TIMER_1) == 0)
-			 {
-				     DIO_voidWriteChannel(LED_0.Pin_Number,DIO_HIGH);
-				 				 GPT_voidStop_Timer(&TIMER_1);
-						 GPT_voidStart_Timer(&TIMER_0,ON_u32Time);
-			 }
-				 */
+
     }
 		
 		return 0;
-		
 }
 
 void Timeer0_ISR(void)
@@ -83,7 +64,7 @@ void Timeer0_ISR(void)
 		CLR_voidInterrupt_Flag(&TIMER_0);
 	
 		DIO_voidWriteChannel(LED_0.Pin_Number,DIO_LOW);
-		GPT_voidStart_Timer(&TIMER_1,OFF_u32Time );
+		GPT_voidStart_Timer(&TIMER_1,OFF_u32Tick_Time );
 }
 void Timeer1_ISR(void)
 {
@@ -91,13 +72,17 @@ void Timeer1_ISR(void)
 	  CLR_voidInterrupt_Flag(&TIMER_1);
 	
     DIO_voidWriteChannel(LED_0.Pin_Number,DIO_HIGH);
-    GPT_voidStart_Timer(&TIMER_0,ON_u32Time);
+    GPT_voidStart_Timer(&TIMER_0,ON_u32Tick_Time);
 }
 void Led_voidCtrl(u16 Copy_u16ONTime, u16 Copy_u16OFFTime)
 {
-    OFF_u32Time = Copy_u16OFFTime*10000;
-    ON_u32Time = Copy_u16ONTime*10000 ;
+	  GPT_voidEnableInterrupt(&TIMER_0,&Timeer0_ISR);
+	  GPT_voidEnableInterrupt(&TIMER_1,&Timeer1_ISR);
+	
+    OFF_u32Tick_Time = Copy_u16OFFTime*10000;
+    ON_u32Tick_Time = Copy_u16ONTime*10000 ;
+	
 	  DIO_voidWriteChannel(LED_0.Pin_Number,DIO_HIGH);
-	  GPT_voidStart_Timer(&TIMER_0,ON_u32Time);
+	  GPT_voidStart_Timer(&TIMER_0,ON_u32Tick_Time);
 }
 

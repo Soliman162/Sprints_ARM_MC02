@@ -1,4 +1,3 @@
-
 #include "IntCtrl.h"
 #include "SYS_Ctrl.h"
 #include "DIO.h"
@@ -14,6 +13,11 @@ static u32 OFF_u32Time = 0;
 
 void Led_voidCtrl(u16 ON_u16Time, u16 OFF_u16Time);
 
+
+void Timer_0A_ISR(void);
+void Timer_1A_ISR(void);
+
+	
 int main(void)
 {
 	/*
@@ -35,25 +39,29 @@ int main(void)
 	*/
 	Init_voidIntCtrl();
 
-	 Init_voidSYS_Ctrl_Clock();
-	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_INPUT_OUTPUT,  MODULE_5);
-	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_0);
-	 SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_1);
-
+	Init_voidSYS_Ctrl_Clock();
+	SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_INPUT_OUTPUT,  MODULE_5);
+	SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_0);
+	SYS_Ctrl_voidEnable_Clock_Run_Mode( GENERAL_PURPOUSE_TIMER_16_32,  MODULE_1);
 	
     DIO_voidInit_Pin(&LED_0);
 	
     Init_voidGPT(&TIMER_0);
-		Init_voidGPT(&TIMER_1);
+	Init_voidGPT(&TIMER_1);
+
 /*
     GPT_voidEnableInterrupt(&TIMER_0);
-	  GPT_voidEnableInterrupt(&TIMER_1);
-
-*/  
+	GPT_voidEnableInterrupt(&TIMER_1);
+*/
+	Led_voidCtrl( 3 , 1  );
 		
     while (1)
     {
-			Led_voidCtrl( 3 , 1  );
+			Timer_1A_ISR();
+			
+			Timer_0A_ISR();
+			
+
 			/*
        if(GET_voidRemainingTime(&TIMER_0)==0)
 			 {
@@ -74,34 +82,26 @@ int main(void)
 		
 }
 
+void Timer_0A_ISR(void)
+{
+		DIO_voidWriteChannel(LED_0.Pin_Number,DIO_LOW);
+		GPT_voidStart_Timer(&TIMER_1,OFF_u32Time );
+		while(Is_u8Timer_Finish(&TIMER_1) != 1);
+		GPT_voidStop_Timer(&TIMER_1);
+		CLR_voidInterrupt_Flag(&TIMER_1);
+}
+void Timer_1A_ISR(void)
+{
+    DIO_voidWriteChannel(LED_0.Pin_Number,DIO_HIGH);
+    GPT_voidStart_Timer(&TIMER_0,ON_u32Time);
+		while(Is_u8Timer_Finish(&TIMER_0) != 1);
+		GPT_voidStop_Timer(&TIMER_0);
+		CLR_voidInterrupt_Flag(&TIMER_0);
+}
+
 void Led_voidCtrl(u16 Copy_u16ONTime, u16 Copy_u16OFFTime)
 {
     OFF_u32Time = Copy_u16OFFTime*1000;
     ON_u32Time = Copy_u16ONTime*1000 ;
-	
-    DIO_voidWriteChannel(LED_0.Pin_Number,DIO_HIGH);
-    GPT_voidStart_Timer(&TIMER_0,ON_u32Time);
-	  while(Check_u8Timer_State(&TIMER_0) != 1);
-	
-		GPT_voidStop_Timer(&TIMER_0);
-	
-	  DIO_voidWriteChannel(LED_0.Pin_Number,DIO_LOW);
-		GPT_voidStart_Timer(&TIMER_1,OFF_u32Time );
-		while(Check_u8Timer_State(&TIMER_1) != 1);
-	
-	  GPT_voidStop_Timer(&TIMER_1);
 }
-
-/*
-void Timer0_ISR(void)
-{
-    
-}
-
-void Timer1_ISR(void)
-{
-
-
-}
-*/
 

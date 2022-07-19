@@ -51,6 +51,13 @@
 #define GPT_16_32_4_BASE_ADDRESS    0x40034000
 #define GPT_16_32_5_BASE_ADDRESS    0x40035000
 
+#define GPT_32_64_WID_6_BASE_ADDRESS     0x40036000    
+#define GPT_32_64_WID_7_BASE_ADDRESS     0x40037000
+#define GPT_32_64_WID_8_BASE_ADDRESS     0x4004C000
+#define GPT_32_64_WID_9_BASE_ADDRESS     0x4004D000
+#define GPT_32_64_WID_10_BASE_ADDRESS    0x4004E000
+#define GPT_32_64_WID_11_BASE_ADDRESS    0x4004F000
+
 
 typedef struct{
     
@@ -218,6 +225,14 @@ typedef struct{
 #define GPT3_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_3_BASE_ADDRESS))
 #define GPT4_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_4_BASE_ADDRESS))
 #define GPT5_16_32_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_16_32_5_BASE_ADDRESS))
+
+#define GPT0_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_6_BASE_ADDRESS ))
+#define GPT1_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_7_BASE_ADDRESS ))
+#define GPT2_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_8_BASE_ADDRESS ))
+#define GPT3_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_9_BASE_ADDRESS ))
+#define GPT4_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_10_BASE_ADDRESS))
+#define GPT5_32_64_WID_BIT_REGs      ((GPT_REGs_CONFIG *)(GPT_32_64_WID_11_BASE_ADDRESS))
+
 /********************************************************************************************/
 /*********************************WDT********************************************************/
  

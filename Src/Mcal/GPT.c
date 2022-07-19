@@ -29,10 +29,8 @@
 #define TIMER_A     0
 #define TIMER_B     1
 
-
 #define TIMER_COUNTING_DIRECTION_DOWN   0    
 
-#define TIMER_A0_32_VECTOR_TABLE_ADDRESS    *((volatile U32 *)0x0000008C)
 /**********************************************************************************************************************
  *  LOCAL DATA 
  *********************************************************************************************************************/
@@ -40,9 +38,13 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA
  *********************************************************************************************************************/
-static GPT_REGs_CONFIG *GPT_ARR[6] = {  GPT0_16_32_BIT_REGs,GPT1_16_32_BIT_REGs,
+static GPT_REGs_CONFIG *GPT_ARR[12] = {  GPT0_16_32_BIT_REGs,GPT1_16_32_BIT_REGs,
                                         GPT2_16_32_BIT_REGs,GPT3_16_32_BIT_REGs
-                                        ,GPT4_16_32_BIT_REGs,GPT5_16_32_BIT_REGs};
+                                        ,GPT4_16_32_BIT_REGs,GPT5_16_32_BIT_REGs,
+                                        GPT0_32_64_WID_BIT_REGs,GPT1_32_64_WID_BIT_REGs
+                                        ,GPT2_32_64_WID_BIT_REGs,GPT3_32_64_WID_BIT_REGs
+                                        ,GPT4_32_64_WID_BIT_REGs,GPT5_32_64_WID_BIT_REGs  
+                                      };
 
 static u32 Timer_u32Init_Counter =0;
 /**********************************************************************************************************************
@@ -60,8 +62,8 @@ void Init_voidGPT(const GPT_CONFIG_TYPE *Copy_type)
 {
     /*disable timer*/
     GPT_ARR[Copy_type->Channel_ID]->GPTMCTL &= ~(1<<TAEN_BIT);
-    
-    GPT_ARR[Copy_type->Channel_ID]->GPTMCFG = 0x00000000;
+    /*SET BIT NUM*/
+    GPT_ARR[Copy_type->Channel_ID]->GPTMCFG = Copy_type->Bit_Num;
     /*periodic or oneshot*/
     GPT_ARR[Copy_type->Channel_ID]->GPTMT_A_B_MR[TIMER_A] |= Copy_type->Channel_Mode;   
 }
@@ -101,7 +103,7 @@ void CLR_voidInterrupt_Flag(const GPT_CONFIG_TYPE *Copy_type)
     GPT_ARR[Copy_type->Channel_ID]->GPTMICR |= 1;
 }
 
-u8 Check_u8Timer_State(const GPT_CONFIG_TYPE *Copy_type)
+u8 Is_u8Timer_Finish(const GPT_CONFIG_TYPE *Copy_type)
 {
 	return (GET_BIT(GPT_ARR[Copy_type->Channel_ID]->GPTMRIS,0)); 
 }

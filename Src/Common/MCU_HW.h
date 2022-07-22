@@ -43,7 +43,6 @@
 #define GPIO_port_E_APB_BASE_ADDRESS        0x40024000
 #define GPIO_port_F_APB_BASE_ADDRESS        0x40025000
 
-
 #define GPT_16_32_0_BASE_ADDRESS    0x40030000    
 #define GPT_16_32_1_BASE_ADDRESS    0x40031000
 #define GPT_16_32_2_BASE_ADDRESS    0x40032000
@@ -57,6 +56,9 @@
 #define GPT_32_64_WID_9_BASE_ADDRESS     0x4004D000
 #define GPT_32_64_WID_10_BASE_ADDRESS    0x4004E000
 #define GPT_32_64_WID_11_BASE_ADDRESS    0x4004F000
+
+#define ADC0_BASE_ADDRESS   0x40038000
+#define ADC1_BASE_ADDRESS   0x40039000
 
 
 typedef struct{
@@ -253,10 +255,52 @@ typedef struct
 
 #define     WDT0_REGs      ((WDT_REGs_CONFIG *)WDT0_BASE_ADDRESS)
 #define     WDT1_REGs      ((WDT_REGs_CONFIG *)WDT1_BASE_ADDRESS)
+/********************************************************************************************/
+/*********************************ADC********************************************************/
 
+typedef struct{
 
+    volatile u32 ADCACTSS;
+    volatile u32 ADCRIS;
+    volatile u32 ADCIM;
+    volatile u32 ADCISC;
+    volatile u32 ADCOSTAT;
+    volatile u32 ADCEMUX;
+    volatile u32 ADCUSTAT;
+    volatile u32 ADCTSSEL;
+    volatile u32 ADCSSPRI;
+    volatile u32 ADCSPC;
+    volatile u32 ADCPSSI;
+    volatile u32 reserved;
+    volatile u32 ADCSAC;
+    volatile u32 ADCDCISC;
+    volatile u32 ADCCTL;
+    volatile u32 reserved_2;
 
+/*
 
+    volatile u32 ADCSS_MUX_CTL_FIFO_FSTAT_OP_DC_0[6];//0 - 5
+    volatile u32 reserved_3[2];//6 7
+    volatile u32 ADCSS_MUX_CTL_FIFO_FSTAT_OP_DC_1[6];// 8 9 10 11 12 13
+    volatile u32 reserved_4[2];//14 15
+    volatile u32 ADCSS_MUX_CTL_FIFO_FSTAT_OP_DC_2[6];//16 17 18 19 20 21
+    volatile u32 reserved_5[2];//22 23
+    volatile u32 ADCSS_MUX_CTL_FIFO_FSTAT_OP_DC_3[6]; //24 25 26 27 28 29
+*/
+    volatile u32 ADCSS_MUX_CTL_FIFO_FSTAT_OP_DC_0_1_2_3[30];
+    volatile u32 reserved_6[786];
+    volatile u32 ADCDCRIC;
+    volatile u32 reserved_7[63];
+    volatile u32 ADCDCCTL[8];
+    volatile u32 reserved_8[88];
+    volatile u32 ADCPP;
+    volatile u32 ADCPC;
+    volatile u32 ADCCC;
+
+}ADC_REGs_CONFIG;
+
+#define ADC0_REGs   ((volatile  ADC_REGs_CONFIG *)ADC0_BASE_ADDRESS)
+#define ADC1_REGs   ((volatile  ADC_REGs_CONFIG *)ADC1_BASE_ADDRESS)
 
 #endif  /* MCU_HW_H */
 
